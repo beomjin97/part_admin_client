@@ -3,15 +3,16 @@ interface Props {
     name: string;
     type?: "text" | "radio" | "number" | "date"
     value?: any;
+    required? : boolean
 }
 
-export default function DefaultInput({label, name, type, value }: Props) {
+export default function DefaultInput({label, name, type, value, required }: Props) {
     return (
         <div className="flex">
             <div className="w-20">
             <label htmlFor={name}>{label}</label>
             </div>
-            <input className="border-1" type={type || 'text'} name={name} id={name} value={value} />
+            <input className="border-1" type={type || 'text'} name={name} id={name} value={value} required={required}/>
         </div>
     )
 }
