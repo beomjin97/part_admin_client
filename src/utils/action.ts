@@ -88,3 +88,49 @@ export async function createManufacturer(initialState: FormState, formData: Form
 
     return {message}
 }
+
+export async function createHistory(initialState: FormState, formData: FormData) {
+    const count = formData.get('count');
+    const is_import = formData.get('is_import');
+    const date = formData.get('date');
+    const part_id = initialState.message;
+
+    let message = '';
+
+    try {
+        const response = await axiosInstance.post('/history', {
+            count,
+            is_import,
+            date,
+            part_id
+        })
+        message = 'creation success'
+
+    } catch (error:any) {
+        message = error.response.data.message;
+    }
+
+    return {message}
+}
+
+export async function mapResource(initialState: FormState, formData: FormData) {
+    const part_id= formData.get('part');
+    const location_id= formData.get('location');
+    const manufacturer_id= formData.get('manufacturer');
+    const category_id= formData.get('category');
+
+    let message = ''
+
+    try {
+        const response = await axiosInstance.patch(`/part/mapping/${part_id}`, {
+            location_id,
+            manufacturer_id,
+            category_id
+        });
+    } catch (error:any) {
+        message = error.response.data.message;
+    }
+
+    return {message}
+    
+}
